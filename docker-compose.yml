@@ -1,0 +1,33 @@
+version: '3.1'
+services:
+  proxy:
+    image: nginx
+    container_name: proxy
+    ports:
+      - 80:80
+    volumes:
+      - .\default.conf:/etc/nginx/conf.d/default.conf
+  webserver:
+    image: node
+    volumes:
+    - .:/app
+    working_dir: /app
+    command: ["node", "webserver.js", "3000"]
+    ports: 
+      - 3000:3000
+  api1:
+    image: node
+    volumes:
+    - .:/app
+    working_dir: /app
+    command: ["node", "apiserver.js","4000"]
+    ports: 
+      - 4000:4000
+  api2:
+    image: node
+    volumes:
+    - .:/app
+    working_dir: /app
+    command: ["node", "apiserver.js","4000"]
+    ports: 
+      - 4001:4000
